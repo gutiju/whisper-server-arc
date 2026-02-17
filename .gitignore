@@ -13,7 +13,5 @@ venv/
 model_ov/
 optimum-intel/
 optimum-onnx/
-*.wav
-*.m4a
 *.mp3
 *.log
