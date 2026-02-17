@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+python-multipart
+# openai-whisper removed
+# torch removed (not strictly needed for genai inference unless fallback)
+numpy
+huggingface_hub
+openvino-genai
+# optimum removed due to issues

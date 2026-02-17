@@ -1,0 +1,10 @@
+POST http://127.0.0.1:8000/api/transcribe HTTP/1.1
+Host: 127.0.0.1:8000
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="example_audio.wav"
+Content-Type: audio/wav
+
+[... binary audio data ...]
+------WebKitFormBoundary7MA4YWxkTrZu0gW--

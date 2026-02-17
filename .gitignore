@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# IDEs
+.vscode/
+.idea/
+
+# Project specific
+model_ov/
+optimum-intel/
+optimum-onnx/
+*.wav
+*.m4a
+*.mp3
+*.log
