@@ -13,5 +13,8 @@ def create_silent_wav(filename="silent.wav", duration=1.0, framerate=44100):
             wav_file.writeframes(struct.pack('h', 0))
 
 if __name__ == "__main__":
-    create_silent_wav()
-    print("Created silent.wav")
+    import os
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    output_path = os.path.join(script_dir, "silent.wav")
+    create_silent_wav(filename=output_path)
+    print(f"Created {output_path}")

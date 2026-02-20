@@ -22,12 +22,15 @@ def run_tests():
     passed_count = 0
     
     for test in tests:
-        file_path = test["filename"]
+        # Resolve file path relative to this script
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(script_dir, test["filename"])
+        
         if not os.path.exists(file_path):
             print(f"⚠️ Skipping {file_path}: File not found.")
             continue
             
-        print(f"Testing {file_path}...")
+        print(f"Testing {test['filename']}...")
         try:
             with open(file_path, "rb") as f:
                 mod_time = os.path.getmtime(file_path)

@@ -53,6 +53,11 @@ A FastAPI-based server for transcribing audio using OpenAI's Whisper model (`tur
 
 Run the included test script (requires generated or existing `silent.wav`):
 ```bash
-python generate_dummy_audio.py
-python test_api.py silent.wav
+python tests/generate_dummy_audio.py
+python tests/test_api.py tests/silent.wav
+```
+
+You can also run the full test battery:
+```bash
+python tests/test_battery.py
 ```
