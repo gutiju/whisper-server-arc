@@ -129,6 +129,8 @@ async def transcribe_audio(file: UploadFile = File(...)):
         elif isinstance(result, list):
              transcription = result[0]
              
+        print(f"Transcription: {transcription}")
+
         return {"status": "success", "output": transcription.strip()}
 
     except Exception as e:

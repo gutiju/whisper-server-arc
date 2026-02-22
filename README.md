@@ -11,12 +11,12 @@ A FastAPI-based server for transcribing audio using OpenAI's Whisper model (`tur
 
 1.  Create a virtual environment:
     ```bash
-    python -m venv venv
+    python -m venv .venv
     ```
 
 2.  Activate the virtual environment:
-    - Windows: `.\venv\Scripts\activate`
-    - Linux/Mac: `source venv/bin/activate`
+    - Windows: `.\.venv\Scripts\activate`
+    - Linux/Mac: `source .venv/bin/activate`
 
 3.  Install dependencies:
     ```bash
