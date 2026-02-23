@@ -129,7 +129,7 @@ async def transcribe_audio(file: UploadFile = File(...)):
         elif isinstance(result, list):
              transcription = result[0]
              
-        print(f"Transcription: {transcription}")
+        print(f"Transcription: {transcription.strip()}")
 
         return {"status": "success", "output": transcription.strip()}
 
