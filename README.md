@@ -25,18 +25,21 @@ A FastAPI-based server for transcribing audio using OpenAI's Whisper model (`tur
 
 ## Usage
 
-1.  Start the server:
+1.  **Start the server**:
     ```bash
     uvicorn main:app --reload
     ```
     The server will start at `http://127.0.0.1:8000`.
 
-2.  Transcribe an audio file:
-    Send a `POST` request to `/api/transcribe` with the audio file.
+2.  **API Documentation**:
+    Interactive OpenAPI documentation is available at `http://127.0.0.1:8000/docs`.
 
-    Example using `curl`:
+3.  **Transcribe an audio file**:
+    Send a `POST` request to `/api/transcribe` with the audio file. The response includes the transcription and the autodetected language.
+
+    **Example using `curl`**:
     ```bash
-    curl -X POST -F "file=@path/to/audio.mp3" http://127.0.0.1:8000/api/transcribe
+    curl -X POST -F "file=@path/to/audio.wav" http://127.0.0.1:8000/api/transcribe
     ```
 
     Example using Python:
@@ -49,15 +52,27 @@ A FastAPI-based server for transcribing audio using OpenAI's Whisper model (`tur
     print(response.json())
     ```
 
+    **Example response**:
+    ```json
+    {
+      "status": "success",
+      "output": {
+        "lang": "en",
+        "text": "Hello world"
+      }
+    }
+    ```
+
 ## Testing
 
-Run the included test script (requires generated or existing `silent.wav`):
-```bash
-python tests/generate_dummy_audio.py
-python tests/test_api.py tests/silent.wav
-```
+The test scripts automatically launch the server if it is not already running.
 
-You can also run the full test battery:
-```bash
-python tests/test_battery.py
-```
+1.  **Run a single transcription test**:
+    ```bash
+    python tests/test_api.py tests/silent.wav
+    ```
+
+2.  **Run the full test battery**:
+    ```bash
+    python tests/test_battery.py
+    ```

@@ -9,3 +9,4 @@ requests
 huggingface_hub
 openvino-genai
 # optimum removed due to issues
+langdetect

@@ -9,10 +9,25 @@ from huggingface_hub import snapshot_download
 import numpy as np
 import scipy.io.wavfile
 
+import json
 # OpenVINO GenAI
 import openvino_genai as ov_genai
+from langdetect import detect
+from pydantic import BaseModel, Field
 
-app = FastAPI()
+class TranscriptionOutput(BaseModel):
+    lang: str = Field(..., description="The autodetected language code (e.g., 'en', 'es')")
+    text: str = Field(..., description="The transcribed text from the audio file")
+
+class TranscriptionResponse(BaseModel):
+    status: str = Field(..., description="The status of the request (e.g., 'success', 'error')")
+    output: TranscriptionOutput = Field(..., description="The transcription result object")
+
+app = FastAPI(
+    title="Whisper Transcription Server",
+    description="A lightweight API for audio transcription using OpenVINO GenAI and OpenAI's Whisper model.",
+    version="1.0.0"
+)
 
 # Global variables
 pipe = None
@@ -47,7 +62,7 @@ async def load_model():
         traceback.print_exc()
         raise e
 
-@app.post("/api/transcribe")
+@app.post("/api/transcribe", response_model=TranscriptionResponse, tags=["Transcription"])
 async def transcribe_audio(file: UploadFile = File(...)):
     if not pipe:
         return JSONResponse(status_code=500, content={"status": "error", "output": "Model not loaded"})
@@ -63,7 +78,7 @@ async def transcribe_audio(file: UploadFile = File(...)):
         
         # Try processing audio data
         try:
-             # Convert audio to 16kHz WAV using ffmpeg
+            # Convert audio to 16kHz WAV using ffmpeg
             # ffmpeg -i input -ar 16000 -ac 1 -c:a pcm_s16le output.wav
             wav_path = temp_audio_path + ".converted.wav"
             try:
@@ -129,9 +144,24 @@ async def transcribe_audio(file: UploadFile = File(...)):
         elif isinstance(result, list):
              transcription = result[0]
              
-        print(f"Transcription: {transcription.strip()}")
+        # Add language detection
+        detected_lang = "unknown"
+        if transcription.strip():
+            try:
+                detected_lang = detect(transcription.strip())
+            except Exception:
+                pass
 
-        return {"status": "success", "output": transcription.strip()}
+        print(f"Transcription: {transcription.strip()}")
+        print(f"Detected Language: {detected_lang}")
+
+        return {
+            "status": "success",
+            "output": {
+                "lang": detected_lang,
+                "text": transcription.strip()
+            }
+        }
 
     except Exception as e:
         traceback.print_exc()

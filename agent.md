@@ -8,7 +8,7 @@ This project builds a lightweight Python server that provides an API for audio t
 - **Goal**: Create a server exposing a single endpoint.
 - **Endpoint**: `POST /api/transcribe`
 - **Input**: Audio file (`multipart/form-data`)
-- **Output**: JSON response `{"status": "success/error", "output": "transcription text/error"}`
+- **Output**: JSON response `{"status": "success/error", "output": {"lang": "en", "text": "transcription string"}}`
 
 ## Technical Stack
 - **Web Framework**: **FastAPI** (with `python-multipart` for uploads).
