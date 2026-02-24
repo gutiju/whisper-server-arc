@@ -29,24 +29,24 @@ A FastAPI-based server for transcribing audio using OpenAI's Whisper model (`tur
     ```bash
     uvicorn main:app --reload
     ```
-    The server will start at `http://127.0.0.1:8000`.
+    The server will start at `http://127.0.0.1:8001` (or the port specified in `.env` via `PORT`).
 
 2.  **API Documentation**:
-    Interactive OpenAPI documentation is available at `http://127.0.0.1:8000/docs`.
+    Interactive OpenAPI documentation is available at `http://127.0.0.1:8001/docs`.
 
 3.  **Transcribe an audio file**:
     Send a `POST` request to `/api/transcribe` with the audio file. The response includes the transcription and the autodetected language.
 
     **Example using `curl`**:
     ```bash
-    curl -X POST -F "file=@path/to/audio.wav" http://127.0.0.1:8000/api/transcribe
+    curl -X POST -F "file=@path/to/audio.wav" http://127.0.0.1:8001/api/transcribe
     ```
 
     Example using Python:
     ```python
     import requests
     response = requests.post(
-        "http://127.0.0.1:8000/api/transcribe",
+        "http://127.0.0.1:8001/api/transcribe",
         files={"file": open("audio.mp3", "rb")}
     )
     print(response.json())

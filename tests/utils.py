@@ -2,8 +2,14 @@ import socket
 import subprocess
 import os
 import time
+from dotenv import load_dotenv
 
-def is_server_running(host="127.0.0.1", port=8000):
+# Load environment variables
+load_dotenv()
+
+def is_server_running(host="127.0.0.1", port=None):
+    if port is None:
+        port = int(os.getenv("PORT", 8001))
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         return s.connect_ex((host, port)) == 0
 
@@ -23,9 +29,10 @@ def ensure_server_running():
     
     if not os.path.exists(python_exe):
          python_exe = "python"
-         
+    
+    port = int(os.getenv("PORT", 8001))
     server_process = subprocess.Popen(
-        [python_exe, "-m", "uvicorn", "main:app", "--host", "127.0.0.1", "--port", "8000"],
+        [python_exe, "-m", "uvicorn", "main:app", "--host", "127.0.0.1", "--port", str(port)],
         cwd=root_dir,
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL

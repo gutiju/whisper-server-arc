@@ -1,5 +1,9 @@
-import os
 import uvicorn
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import JSONResponse
 import tempfile
@@ -180,4 +184,5 @@ async def transcribe_audio(file: UploadFile = File(...)):
                 pass
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.getenv("PORT", 8001))
+    uvicorn.run(app, host="0.0.0.0", port=port)

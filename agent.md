@@ -15,6 +15,7 @@ This project builds a lightweight Python server that provides an API for audio t
 - **Whisper Engine**: Local `openai-whisper` library.
 - **Model**: `turbo`.
 - **Dependency Management**: `pip` with `requirements.txt`.
+- **Configuration**: `.env` file for server port (`PORT`).
 
 ## Environment
 - **OS**: Windows

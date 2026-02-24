@@ -4,7 +4,8 @@ import os
 from utils import ensure_server_running
 
 def test_transcribe(audio_file_path):
-    url = "http://127.0.0.1:8000/api/transcribe"
+    port = int(os.getenv("PORT", 8001))
+    url = f"http://127.0.0.1:{port}/api/transcribe"
     server_process, started_by_us = ensure_server_running()
     
     try:
